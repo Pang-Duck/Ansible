@@ -1,0 +1,19 @@
+---
+- name: Create new VM with available IP
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    datacenter: "{{ datacenter_name }}"
+    name: "new_vm_{{ available_ip | replace('.', '_') }}"
+    state: poweredon
+    guest_id: "{{ vm_guest_id }}"
+    hardware: "{{ vm_hardware }}"
+    networks:
+      - name: "{{ network_name }}"
+        ip: "{{ available_ip }}"
+        netmask: "255.255.255.0"
+        gateway: "{{ ip_range.split('/')[0].rsplit('.', 1)[0] }}.1"
+    customization:
+      dns_servers: "{{ dns_servers }}"

@@ -1,0 +1,6 @@
+---
+- name: Provision VM with available IP
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - vm_provisioning

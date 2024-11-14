@@ -1,0 +1,8 @@
+---
+- import_tasks: get_vm_info.yml
+- import_tasks: find_available_ip.yml
+- import_tasks: create_vm.yml
+
+- name: Display created VM info
+  debug:
+    msg: "Created VM with IP: {{ available_ip }}"

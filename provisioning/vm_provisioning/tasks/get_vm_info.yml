@@ -1,0 +1,15 @@
+---
+- name: Get all VMs info
+  vmware_guest_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    datacenter: "{{ datacenter_name }}"
+    folder: "/{{ datacenter_name }}/vm"
+  delegate_to: localhost
+  register: all_vms_info
+
+- name: Extract all used IPs
+  set_fact:
+    used_ips: "{{ all_vms_info.virtual_machines | map(attribute='guest_ip_addresses') | flatten | select('match', '^' + ip_range.split('/')[0].rsplit('.', 1)[0]) | list }}"

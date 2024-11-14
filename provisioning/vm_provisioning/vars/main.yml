@@ -1,0 +1,8 @@
+---
+vm_hardware:
+  memory_mb: 2048
+  num_cpus: 2
+vm_guest_id: ubuntu64Guest
+dns_servers:
+  - 8.8.8.8
+  - 8.8.4.4

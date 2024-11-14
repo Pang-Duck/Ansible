@@ -1,0 +1,4 @@
+---
+- name: Find available IP
+  set_fact:
+    available_ip: "{{ ip_range.split('/')[0].rsplit('.', 1)[0] + '.' + (((used_ips | map('regex_replace', '^.*\\.(\\d+)$', '\\1') | map('int') | list | sort) + [2,254] | difference | first ) | string) }}"
